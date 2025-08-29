@@ -1,5 +1,5 @@
-
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" class="bg-green-50"> 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,16 +7,9 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Ensuring the layout takes full screen height */
-        html, body {
-            height: 100%;
-        }
+       
         body {
-            display: flex;
-            flex-direction: column;
-        }
-        .main-content {
-            flex-grow: 1;
+            width: 100%;
         }
     </style>
 </head>
@@ -25,12 +18,12 @@
     <!-- 1. NAVBAR -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <nav class="w-full flex justify-between items-center p-4 px-8">
-       
+         
             <div class="flex items-center gap-3">
                 <img src="images/logo.png" alt="Logo" class="h-10 w-10">
                 <span class="font-bold text-xl text-gray-800">Emergency Service</span>
             </div>
-            
+      
             <div class="flex items-center gap-3">
                 <div class="bg-red-50 text-red-500 rounded-full px-4 py-2 flex items-center gap-2">
                     <span id="heart-count" class="font-bold">0</span>
@@ -47,7 +40,8 @@
             </div>
         </nav>
     </header>
-     <!-- 2.  HERO SECTION -->
+
+    <!-- 2. HERO SECTION -->
     <section class="bg-emerald-800 text-white py-12 px-4 text-center">
         <div class="w-full">
             <img src="images/logo.png" alt="Emblem" class="mx-auto h-20 mb-4">
@@ -57,6 +51,7 @@
             </p>
         </div>
     </section>
+
     <!-- 3. Main Content Section -->
     <section class="main-content w-full p-8 grid grid-cols-1 lg:grid-cols-4 gap-4">
         <!-- Cards Container -->
@@ -139,7 +134,7 @@
                 </div>
             </div>
 
-            <!-- Card 7: Electricity Helpline  -->
+            <!-- Card 7: Electricity Helpline -->
             <div class="card bg-white p-4 rounded-xl shadow-md relative">
                 <div class="absolute top-2 right-2 cursor-pointer text-2xl heart">♡</div>
                 <img src="images/emergency.png" alt="Electricity" class="w-10 h-10 mb-2">
@@ -152,7 +147,7 @@
                 </div>
             </div>
 
-            <!-- Card 8: Brac Helpline  -->
+            <!-- Card 8: Brac Helpline -->
             <div class="card bg-white p-4 rounded-xl shadow-md relative">
                 <div class="absolute top-2 right-2 cursor-pointer text-2xl heart">♡</div>
                 <img src="images/brac.png" alt="Brac" class="w-10 h-10 mb-2">
@@ -178,7 +173,8 @@
                 </div>
             </div>
         </div>
-<!-- History Section -->
+
+        <!-- History Section -->
         <div class="history bg-white p-4 rounded-xl shadow-md lg:col-span-1">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="font-semibold text-lg">Call History</h2>
@@ -189,38 +185,32 @@
             </ul>
         </div>
     </section>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Selecting elements for counters in the navbar
             const heartCountEl = document.getElementById('heart-count');
             const coinCountEl = document.getElementById('coin-count');
             const copyCountEl = document.getElementById('copy-count');
-            
-            // Selecting elements for the main content
             const cardsContainer = document.querySelector('.cards');
             const historyList = document.getElementById('history-list');
             const clearHistoryBtn = document.getElementById('clear-history');
 
-            // Initial values for the counters
             let heartCount = 0;
             let coinCount = 100;
             let copyCount = 0;
 
-            // Event listener for the entire cards container (using event delegation)
             cardsContainer.addEventListener('click', (e) => {
                 const card = e.target.closest('.card');
                 if (!card) return;
 
-                // Heart icon functionality
                 if (e.target.classList.contains('heart')) {
                     if (e.target.textContent === '♡') {
-                        e.target.textContent = '❤️'; // Change heart icon
+                        e.target.textContent = '❤️';
                         heartCount++;
                         heartCountEl.textContent = heartCount;
                     }
                 }
 
-                // Copy button functionality
                 if (e.target.closest('.copy-btn')) {
                     const numberToCopy = card.querySelector('.text-2xl').textContent;
                     navigator.clipboard.writeText(numberToCopy).then(() => {
@@ -230,15 +220,12 @@
                     });
                 }
 
-                // Call button functionality
                 if (e.target.closest('.call-btn')) {
                     if (coinCount >= 20) {
                         coinCount -= 20;
                         coinCountEl.textContent = coinCount;
-
                         const serviceName = card.querySelector('h3').textContent;
                         const serviceNumber = card.querySelector('.text-2xl').textContent;
-                        
                         alert(`Calling ${serviceName} at ${serviceNumber}`);
                         addCallToHistory(serviceName, serviceNumber);
                     } else {
@@ -247,7 +234,6 @@
                 }
             });
 
-            // Function to add a call to the history list
             function addCallToHistory(name, number) {
                 const callTime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
                 const listItem = document.createElement('li');
@@ -256,12 +242,11 @@
                     <span><strong>${name}</strong> - ${number}</span>
                     <span class="text-gray-500">${callTime}</span>
                 `;
-                historyList.prepend(listItem); // Add to the top of the list
+                historyList.prepend(listItem);
             }
 
-            // Functionality for the "Clear History" button
             clearHistoryBtn.addEventListener('click', () => {
-                historyList.innerHTML = ''; // Clear all items from the list
+                historyList.innerHTML = '';
             });
         });
     </script>
