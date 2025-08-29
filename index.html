@@ -189,3 +189,81 @@
             </ul>
         </div>
     </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Selecting elements for counters in the navbar
+            const heartCountEl = document.getElementById('heart-count');
+            const coinCountEl = document.getElementById('coin-count');
+            const copyCountEl = document.getElementById('copy-count');
+            
+            // Selecting elements for the main content
+            const cardsContainer = document.querySelector('.cards');
+            const historyList = document.getElementById('history-list');
+            const clearHistoryBtn = document.getElementById('clear-history');
+
+            // Initial values for the counters
+            let heartCount = 0;
+            let coinCount = 100;
+            let copyCount = 0;
+
+            // Event listener for the entire cards container (using event delegation)
+            cardsContainer.addEventListener('click', (e) => {
+                const card = e.target.closest('.card');
+                if (!card) return;
+
+                // Heart icon functionality
+                if (e.target.classList.contains('heart')) {
+                    if (e.target.textContent === '♡') {
+                        e.target.textContent = '❤️'; // Change heart icon
+                        heartCount++;
+                        heartCountEl.textContent = heartCount;
+                    }
+                }
+
+                // Copy button functionality
+                if (e.target.closest('.copy-btn')) {
+                    const numberToCopy = card.querySelector('.text-2xl').textContent;
+                    navigator.clipboard.writeText(numberToCopy).then(() => {
+                        alert(`Copied: ${numberToCopy}`);
+                        copyCount++;
+                        copyCountEl.textContent = copyCount;
+                    });
+                }
+
+                // Call button functionality
+                if (e.target.closest('.call-btn')) {
+                    if (coinCount >= 20) {
+                        coinCount -= 20;
+                        coinCountEl.textContent = coinCount;
+
+                        const serviceName = card.querySelector('h3').textContent;
+                        const serviceNumber = card.querySelector('.text-2xl').textContent;
+                        
+                        alert(`Calling ${serviceName} at ${serviceNumber}`);
+                        addCallToHistory(serviceName, serviceNumber);
+                    } else {
+                        alert('Not enough coins to make a call!');
+                    }
+                }
+            });
+
+            // Function to add a call to the history list
+            function addCallToHistory(name, number) {
+                const callTime = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+                const listItem = document.createElement('li');
+                listItem.className = 'flex justify-between items-center bg-gray-100 p-2 rounded';
+                listItem.innerHTML = `
+                    <span><strong>${name}</strong> - ${number}</span>
+                    <span class="text-gray-500">${callTime}</span>
+                `;
+                historyList.prepend(listItem); // Add to the top of the list
+            }
+
+            // Functionality for the "Clear History" button
+            clearHistoryBtn.addEventListener('click', () => {
+                historyList.innerHTML = ''; // Clear all items from the list
+            });
+        });
+    </script>
+</body>
+</html>
