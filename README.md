@@ -3,10 +3,10 @@
 
 1. Difference between `getElementById`, `getElementsByClassName`, and `querySelector` / `querySelectorAll`?
 
-- `getElementById`**: Grabs one element by its unique `id`. Returns that element or nothing if no match.
-- `getElementsByClassName`**: Gets all elements with a specific class. Gives a live list that updates if the page changes.
-- `querySelector`**: Picks the first element matching a CSS selector (like `#id`, `.class`, or `tag`). Super flexible.
-- `querySelectorAll`**: Gets all elements matching a CSS selector. Returns a static list you can loop through.
+- `getElementById`: Grabs one element by its unique `id`. Returns that element or nothing if no match.
+- `getElementsByClassName`: Gets all elements with a specific class. Gives a live list that updates if the page changes.
+- `querySelector`: Picks the first element matching a CSS selector (like `#id`, `.class`, or `tag`). Super flexible.
+- `querySelectorAll`: Gets all elements matching a CSS selector. Returns a static list you can loop through.
 
 Difference: `getElementById` is for one `id`, `getElementsByClassName` is for classes, and `querySelector`/`querySelectorAll` work with any CSS selector. First two are faster but less flexible.
 
