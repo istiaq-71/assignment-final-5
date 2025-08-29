@@ -36,7 +36,7 @@ Why useful**: Saves memory (fewer listeners), works for new elements added later
 
 5. Difference between `preventDefault()` and `stopPropagation()`?
 
-- `preventDefault()`**: Stops the browser’s default action (like a link navigating or form submitting).
-- `stopPropagation()`**: Stops the event from moving up to parent elements (or down in rare cases).
+- `preventDefault()`: Stops the browser’s default action (like a link navigating or form submitting).
+- `stopPropagation()`: Stops the event from moving up to parent elements (or down in rare cases).
 
 Difference: `preventDefault` blocks what the element normally does; `stopPropagation` keeps the event from affecting other elements.
